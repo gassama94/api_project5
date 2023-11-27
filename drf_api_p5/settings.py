@@ -61,7 +61,7 @@ DEBUG = 'DEV' in os.environ
 
 ALLOWED_HOSTS = [
     'localhost',
-    'https://drfapip5-5a529a133c37.herokuapp.com',
+    'drfapip5-5a529a133c37.herokuapp.com',
     '8000-gassama94-apiproject5-0f5l91xe27s.ws-eu106.gitpod.io'
 ]
 
