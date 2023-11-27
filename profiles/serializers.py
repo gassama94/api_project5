@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Profile
+from .models import Profile, Project, Task
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -20,4 +20,5 @@ class ProfileSerializer(serializers.ModelSerializer):
             'id', 'owner', 'created_at', 'updated_at', 'name', 'content',
             'is_owner'
         ]
+
 
