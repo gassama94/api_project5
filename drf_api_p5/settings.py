@@ -28,10 +28,21 @@ REST_FRAMEWORK = {
     )]
 }
 
+if 'DEV' not in os.environ:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+        'rest_framework.renderers.JSONRenderer',
+    ]
+
+
+
 REST_USE_JWT = True
 JWT_AUTH_SECURE = True
 JWT_AUTH_COOKIE = 'my-app-auth'
 JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+
+# Cookies would block it if thie not set to 'none'.
+JWT_AUTH_SAMESITE = 'None'
+
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'drf_api_p5.serializers.CurrentUserSerializer'}
