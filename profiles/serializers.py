@@ -8,8 +8,11 @@ class ProfileSerializer(serializers.ModelSerializer):
     is_owner = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
-        request = self.context['request']
-        return request.user == obj.owner
+        request = self.context.get('request')
+        if request:
+            return request.user == obj.owner
+        return False
+
 
     class Meta:
         model = Profile
