@@ -30,7 +30,10 @@ SECRET_KEY = 'django-insecure-4&9(8h8lq*iqh8z=77a_!_o-zn_3k-fxxcaf3v058)^fq$&gxq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '8000-gassama94-apiproject5-0f5l91xe27s.ws-eu106.gitpod.io'
+]
 
 
 # Application definition
@@ -53,7 +56,6 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'rest_framework',
-    'django_filters',
 
 ]
 
@@ -62,7 +64,10 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
