@@ -1,5 +1,6 @@
 from django.http import Http404
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated 
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -69,17 +70,35 @@ class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class TaskList(generics.ListCreateAPIView):
-    queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        """
+        This view should return a list of all tasks
+        for the currently authenticated user.
+        """
+        project_id = self.kwargs['project_id']
+        return Task.objects.filter(project__id=project_id, project__owner=self.request.user)
+
+
     def perform_create(self, serializer):
-        serializer.save(project_id=self.kwargs['project_id'])
+        """
+        Save the task with the project_id taken from the URL.
+        """
+        project_id = self.kwargs['project_id']
+        serializer.save(project_id=project_id)
 
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Task.objects.all()
     serializer_class = TaskSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
     def get_queryset(self):
-        return Project.objects.filter(owner=self.request.user)
+        """
+        This view should return a list of all tasks
+        for the currently authenticated user.
+        """
+        return Task.objects.filter(project__owner=self.request.user)
+
+
+    
