@@ -22,3 +22,13 @@ class ProfileSerializer(serializers.ModelSerializer):
         ]
 
 
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = ['id', 'owner', 'title', 'description', 'due_date', 'created_at', 'updated_at']
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ['id', 'project', 'text', 'completed', 'created_at', 'updated_at']

@@ -3,8 +3,8 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Profile
-from .serializers import ProfileSerializer
+from .models import Profile, Project, Task
+from .serializers import ProfileSerializer,  TaskSerializer, ProjectSerializer
 from drf_api_p5.permissions import IsOwnerOrReadOnly
 
 
@@ -49,3 +49,24 @@ class ProfileDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProjectList(generics.ListCreateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+class ProjectDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+
+
+class TaskList(generics.ListCreateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(project_id=self.kwargs['project_id'])
+
+class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
