@@ -112,12 +112,15 @@ MIDDLEWARE = [
 
 if 'CLIENT_ORIGIN' in os.environ:
      CORS_ALLOWED_ORIGINS = [
+        'https://peakplanning-9a67e4688756.herokuapp.com',
          os.environ.get('CLIENT_ORIGIN')
      ]
 else:
      CORS_ALLOWED_ORIGIN_REGEXES = [
          r"^https://.*\.gitpod\.io$",
      ]
+
+##'http://localhost:3000'
 
 CORS_ALLOW_CREDENTIALS = True
 
